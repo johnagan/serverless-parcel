@@ -2,6 +2,7 @@
   "name": "serverless-parcel",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "A Serverless.js plugin to bundle your functions and assets with Parcel Bundler",
   "license": "MIT",
   "author": {
     "name": "John Agan",
