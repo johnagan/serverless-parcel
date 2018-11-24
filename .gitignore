@@ -1,0 +1,11 @@
+# MacOs
+.DS_Store
+
+# package directories
+node_modules
+
+# Visual Studio Code directories
+.vscode
+
+# Logs files
+*.log

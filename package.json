@@ -1,0 +1,26 @@
+{
+  "name": "serverless-parcel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "John Agan",
+    "email": "johnagan@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnagan/serverless-parcel.git"
+  },
+  "keywords": [
+    "serverless",
+    "serverless plugin",
+    "typescript",
+    "babel",
+    "parcel",
+    "aws lambda"
+  ],
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "parcel-bundler": "^1.10.3"
+  }
+}
