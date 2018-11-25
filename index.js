@@ -28,8 +28,7 @@ class ServerlessPluginParcel {
 
     // bundle custom entries
     const customBundles = entries.map(entry => {
-      const options = Object.assign({ cache: false, watch: false }, entry);
-      const bundler = new Bundler(entry.file, options);
+      const bundler = new Bundler(entry.file, entry);
       return bundler.bundle();
     });
 
@@ -44,7 +43,7 @@ class ServerlessPluginParcel {
       const outDir = path.relative(this.servicePath, outPath);
 
       // build parcel config
-      const defaults = { target: "node", cache: false, bundleNodeModules: true, watch: false };
+      const defaults = { target: "node" };
       const config = Object.assign({}, defaults, options, { outDir });
 
       const bundler = new Bundler(`./${entry}`, config);
