@@ -20,20 +20,14 @@ class ServerlessPluginParcel {
     };
   }
 
-  bundle() {
+  async bundle() {
     this.serverless.cli.log("bundling parcel entries...");
 
     const { functions, custom } = this.serverless.service;
     const { entries, options } = custom.parcel;
 
-    // bundle custom entries
-    const customBundles = entries.map(entry => {
-      const bundler = new Bundler(entry.file, entry);
-      return bundler.bundle();
-    });
-
     // bundle lambda entries
-    const lambdaBundles = Object.keys(functions).map(key => {
+    for (const key of Object.keys(functions)) {
       const { handler } = functions[key];
       const method = path.extname(handler);
       const entry = handler.replace(method, ".[jt]s");
@@ -43,16 +37,22 @@ class ServerlessPluginParcel {
       const outDir = path.relative(this.servicePath, outPath);
 
       // build parcel config
-      const defaults = { target: "node" };
+      const defaults = { target: "node", cache: false, watch: false, bundleNodeModules: true };
       const config = Object.assign({}, defaults, options, { outDir });
 
       const bundler = new Bundler(`./${entry}`, config);
-      return bundler.bundle();
-    });
+      await bundler.bundle();
+    }
+
+    // bundle custom entries
+    for (const entry of entries) {
+      const options = Object.assign({ cache: false, watch: false }, entry);
+      const bundler = new Bundler(entry.file, options);
+      await bundler.bundle();
+    }
 
     // point serverless to the build path to zip files
     this.serverless.config.servicePath = this.buildPath;
-    return Promise.all(lambdaBundles.concat(customBundles));
   }
 
   cleanup() {

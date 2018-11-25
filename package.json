@@ -1,6 +1,6 @@
 {
   "name": "serverless-parcel",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "description": "A Serverless plugin to bundle your functions and assets with Parcel Bundler",
   "license": "MIT",
